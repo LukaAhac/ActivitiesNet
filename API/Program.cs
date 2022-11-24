@@ -2,6 +2,7 @@ using Application.Activities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Persistance;
+using Application.Core;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +29,9 @@ builder.Services.AddCors(opt => {
 
 //Add mediator service
 builder.Services.AddMediatR(typeof(List.Handler).Assembly);
+
+//Add automapper
+builder.Services.AddAutoMapper(typeof(MappingProfiles).Assembly);
 
 var app = builder.Build();
 
