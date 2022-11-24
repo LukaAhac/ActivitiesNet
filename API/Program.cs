@@ -3,35 +3,15 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Persistance;
 using Application.Core;
+using API.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-//Add Sqlite database service
-builder.Services.AddDbContext<DataContext>(opt =>
-{
-    opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
-});
-
-//Add CORS service
-builder.Services.AddCors(opt => {
-    opt.AddPolicy("CorsPolicy", policy =>{
-        policy.AllowAnyMethod().AllowAnyHeader().WithOrigins("http://localhost:3000");
-    });
-});
-
-//Add mediator service
-builder.Services.AddMediatR(typeof(List.Handler).Assembly);
-
-//Add automapper
-builder.Services.AddAutoMapper(typeof(MappingProfiles).Assembly);
+//Adding my services
+builder.Services.AddApplicationServices(builder.Configuration);
 
 var app = builder.Build();
 
