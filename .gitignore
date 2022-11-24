@@ -477,3 +477,8 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+
+#SQLite db temps
+API/reactivities.db-shm
+API/reactivities.db-wal
