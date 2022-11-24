@@ -1,3 +1,5 @@
+using Application.Activities;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Persistance;
 
@@ -17,12 +19,15 @@ builder.Services.AddDbContext<DataContext>(opt =>
     opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
-//Ad CORS service
+//Add CORS service
 builder.Services.AddCors(opt => {
     opt.AddPolicy("CorsPolicy", policy =>{
         policy.AllowAnyMethod().AllowAnyHeader().WithOrigins("http://localhost:3000");
     });
 });
+
+//Add mediator service
+builder.Services.AddMediatR(typeof(List.Handler).Assembly);
 
 var app = builder.Build();
 
