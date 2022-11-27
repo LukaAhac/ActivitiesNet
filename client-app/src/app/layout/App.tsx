@@ -21,23 +21,6 @@ useEffect(() => {
     activityStore.loadActivites();
 }, [activityStore])
 
-function handleSelectActivity(id: string){
-  setSelectedActivity(activities.find(x => x.id === id))
-}
-
-function handleCancleSelectActivity(){
-  setSelectedActivity(undefined);
-}
-
-function handleFormOpen(id? : string){
-  id ? handleSelectActivity(id) : handleCancleSelectActivity();
-  setEditMode(true);
-}
-
-function handleFormClose(){
-  setEditMode(false);
-}
-
 function handleCreateOrEditActivity(activity : Activity){
   setSubmitting(true);
   if (activity.id){
@@ -70,18 +53,10 @@ if (activityStore.loadingInitial) return <LoadingComponent content='Loading app'
 
   return (
     <> 
-      <NavBar
-        openForm={handleFormOpen}
-      />
+      <NavBar/>
       <Container style={{marginTop: '7em'}}>
         <ActivityDashboard
           activities={activityStore.activities}
-          selectedActivity={selectedActivity}
-          selectActivity={handleSelectActivity}
-          cancleSelectActivity={handleCancleSelectActivity}
-          editMode={editMode}
-          openForm={handleFormOpen}
-          closeForm={handleFormClose}
           createOrEdit={handleCreateOrEditActivity}
           deleteActivity={handleDeleteActivity}
           submitting={submitting}
