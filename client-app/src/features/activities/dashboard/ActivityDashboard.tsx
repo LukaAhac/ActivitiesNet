@@ -8,10 +8,11 @@ import ActivityList from './ActivityList';
 export default observer(function ActivityDashboard(){
 
     const {activityStore} = useStore();
+    const {loadActivites, activityRegistry} = activityStore;
 
     useEffect(() => {
-      activityStore.loadActivites();
-    }, [activityStore])
+      if (activityRegistry.size <= 1 ) loadActivites();
+    }, [activityRegistry.size, loadActivites])
   
     if (activityStore.loadingInitial) return <LoadingComponent content='Loading app' />
 
