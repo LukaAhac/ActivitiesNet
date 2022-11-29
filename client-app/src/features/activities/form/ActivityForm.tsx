@@ -11,7 +11,7 @@ export default observer(function ActivityForm(){
 
     const navigate = useNavigate();
     const {activityStore} = useStore();
-    const {createActivity, updateActivity, loading, loadActivity, loadingInitial} = activityStore;
+    const {createActivity, updateActivity, loading, loadActivity, loadingInitial, setLoadingInitial} = activityStore;
     const {id} = useParams();
 
     const [activity, setActivity] = useState({
@@ -35,7 +35,8 @@ export default observer(function ActivityForm(){
             city: '',
             venue: ''
         })
-    }, [id, loadActivity]);
+        setLoadingInitial(false);
+    }, [id, loadActivity, setLoadingInitial]);
 
 
     function handleSubmit(){
